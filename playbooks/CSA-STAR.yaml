@@ -89,3 +89,12 @@
       regexp="^ClientAliveCountMax\s+"
       line="ClientAliveCountMax 0"
 
+  - name: Install auditd
+    apt: name=auditd state=present
+
+  - name: audit.rules configuration
+    copy: src=templates/audit.rules dest=/etc/audit/audit.rules owner=root group=root mode=0640
+
+  - name: Apply audit.rules
+    command: /sbin/auditctl -R /etc/audit/audit.rules
+  

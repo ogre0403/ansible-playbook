@@ -1,0 +1,41 @@
+# This file contains the auditctl rules that are loaded
+# whenever the audit daemon is started via the initscripts.
+# The rules are simply the parameters that would be passed
+# to auditctl.
+
+# First rule - delete all
+-D
+
+# Increase the buffers to survive stress events.
+# Make this bigger for busy systems
+-b 320
+
+# Feel free to add below this line. See auditctl man page
+
+
+-w /etc/group -p wa
+-w /etc/passwd -p wa
+-w /etc/gshadow -p wa
+-w /etc/shadow -p wa
+-w /etc/security/opasswd -p wa
+-w /etc/selinux/ -p wa
+-w /etc/sudoers -p wa
+-w /etc/localtime -p wa
+-w /etc/issue -p wa
+-w /etc/issue.net -p wa
+-w /etc/hosts -p wa
+
+
+#-a always,exit -F arch=b32\b64 -S adjtimex -S settimeofday -S stime
+#-a always,exit -F arch=b32\b64 -S clock_settime                                     
+#-a always,exit -F arch=b32\b64 -S sethostname -S setdomainname
+
+
+#-w /var/log/faillog -p wa -k logins
+#-w /var/log/lastlog -p wa -k logins    
+#-w /var/log/tallylog -p wa -k logins
+#-w /var/run/utmp -p wa
+#-w /var/log/wtmp -p wa
+#-w /var/log/btmp -p wa
+
+
