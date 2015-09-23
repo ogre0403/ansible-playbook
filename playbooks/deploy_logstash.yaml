@@ -1,0 +1,10 @@
+---
+- name: Deploy logstash agent
+  hosts: PRD
+  gather_facts: False
+  su: yes
+  su_user: root
+  
+  tasks:
+  - name: shutdown host
+    command: /sbin/shutdown -h now

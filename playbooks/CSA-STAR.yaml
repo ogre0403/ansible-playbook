@@ -1,0 +1,91 @@
+---
+- name: Configure the system security policy for CSA STAR
+  hosts: TEST
+  gather_facts: False
+  su: yes
+  su_user: root
+  
+  tasks:
+  - name: 6.6.1.3 每180天需更換一次密碼 - 修正系統原則
+    lineinfile: >
+      state=present
+      dest=/etc/login.defs
+      regexp="^PASS_MAX_DAYS\s+"
+      line="PASS_MAX_DAYS\t180"
+
+  - name: 6.6.1.3 每180天需更換一次密碼 - 套用原則於root
+    command: /usr/bin/chage -M 180 root
+  
+  - name: Install pam_cracklib module
+    apt: name=libpam-cracklib state=present
+
+  - name: 6.6.1.7 嘗試失敗6次後鎖定帳號    6.6.1.8鎖定帳號至少30分鐘或直到系統管理員啟用帳號 
+    copy: src=templates/{{item}} dest=/etc/pam.d/{{item}} owner=root group=root mode=0644
+    with_items:
+      - common-account
+      - common-auth
+      - common-password
+ 
+  - name: Remove rhosts in sshd_config
+    lineinfile: >
+      state=present
+      dest=/etc/ssh/sshd_config
+      regexp="^IgnoreRhosts\s+"
+      line="IgnoreRhosts yes"
+
+  - name: Set LogLevel in sshd_config
+    lineinfile: >
+      state=present
+      dest=/etc/ssh/sshd_config
+      regexp="^LogLevel\s+"
+      line="LogLevel INFO"
+
+  - name: Root is not allowed login
+    lineinfile: >
+      state=present
+      dest=/etc/ssh/sshd_config
+      regexp="^PermitRootLogin\s+"
+      line="PermitRootLogin no"
+
+  - name: MaxAuthTries
+    lineinfile: >
+      state=present
+      dest=/etc/ssh/sshd_config
+      regexp="^MaxAuthTries\s+"
+      line="MaxAuthTries 4"
+
+  - name: PermitEmptyPasswords
+    lineinfile: >
+      state=present
+      dest=/etc/ssh/sshd_config
+      regexp="^PermitEmptyPasswords\s+"
+      line="PermitEmptyPasswords no"
+
+  - name: PermitUserEnvironment
+    lineinfile: >
+      state=present
+      dest=/etc/ssh/sshd_config
+      regexp="^PermitUserEnvironment\s+"
+      line="PermitUserEnvironment no"
+
+  - name: Ciphers
+    lineinfile: >
+      state=present
+      dest=/etc/ssh/sshd_config
+      regexp="^Ciphers\s+"
+      line="Ciphers aes128-ctr,aes192-ctr,aes256-ctr"
+
+  - name: ClientAliveInterval
+    lineinfile: >
+      state=present
+      dest=/etc/ssh/sshd_config
+      regexp="^ClientAliveInterval\s+"
+      line="ClientAliveInterval 300"
+
+  - name: ClientAliveCountMax
+    lineinfile: >
+      state=present
+      dest=/etc/ssh/sshd_config
+      regexp="^ClientAliveCountMax\s+"
+      line="ClientAliveCountMax 0"
+
