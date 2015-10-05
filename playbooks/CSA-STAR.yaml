@@ -1,6 +1,6 @@
 ---
 - name: Configure the system security policy for CSA STAR
-  hosts: TEST
+  hosts: PRD
   gather_facts: False
   su: yes
   su_user: root

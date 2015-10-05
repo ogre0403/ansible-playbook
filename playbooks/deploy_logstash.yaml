@@ -1,6 +1,6 @@
 ---
 - name: Deploy logstash agent
-  hosts: TEST
+  hosts: PRD
   gather_facts: False
   su: yes
   su_user: root
@@ -14,3 +14,9 @@
 
   - name: logstash audit pattern
     copy: src=templates/grok-pattern/audit dest=/opt/logstash/patterns/audit owner=hdadm group=hdadm mode=0644
+
+  - name: add hdadm to sudoers
+    lineinfile: 
+      "state=present
+      dest=/etc/sudoers
+      line='hdadm ALL=(ALL:ALL) ALL'"
