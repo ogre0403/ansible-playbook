@@ -3,7 +3,7 @@
 Using following commands to execute playbooks
 
 ```sh
-ansible-playbook -i ./hosts --ask-su-pass ./playbooks/<playbooks_name>.yaml 
+ansible-playbook -i ./hosts --ask-su-pass ./playbooks/<playbooks_name>/main.yaml 
 ```
 
 Following playbooks are provided: 
@@ -14,5 +14,8 @@ Following playbooks are provided:
 2. CSA-START.yaml
     * Configure all host to follow CSA-START security policy
 
-3. deploy_logstash.yaml
+3. logstash.yaml
     * deploy logstash agent 
+
+4. rkhunter
+    * install & configure rkhunter

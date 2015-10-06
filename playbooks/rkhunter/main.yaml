@@ -1,0 +1,26 @@
+---
+- name: Install & Configure rkhunter
+  hosts: local
+  gather_facts: False
+  su: yes
+  su_user: root
+
+  tasks:
+    - name: rkhunter | install
+      apt: pkg=rkhunter state=latest update_cache=yes
+      tags: rkhunter
+
+    - name: rkhunter | update
+      command: rkhunter --propupd
+      tags: rkhunter
+
+    - name: rkhunter | configure
+      lineinfile: dest=/etc/rkhunter.conf regexp="{{ item.regexp }}" line="{{ item.line }}" backup=yes
+      with_items:
+        - { regexp: SCRIPTWHITELIST=/usr/bin/unhide.rb, line: SCRIPTWHITELIST=/usr/bin/unhide.rb }
+        - { regexp: MAIL-ON-WARNING=\"\", line: MAIL-ON-WARNING=\"hdadm@narlabs.org.tw\" }
+      tags: rkhunter
+
+    - name: rkhunter | configure cron
+      lineinfile: dest=/etc/default/rkhunter regexp="^CRON_DAILY_RUN" line='CRON_DAILY_RUN="yes"' backup=yes
+      tags: rkhunter
