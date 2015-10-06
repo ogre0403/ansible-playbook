@@ -8,14 +8,17 @@ ansible-playbook -i ./hosts --ask-su-pass ./playbooks/<playbooks_name>/main.yaml
 
 Following playbooks are provided: 
 
-1. reboot.yaml:
+1. reboot:
     * reboot all host
 
-2. CSA-START.yaml
+2. CSA-START:
     * Configure all host to follow CSA-START security policy
 
-3. logstash.yaml
+3. logstash:
     * deploy logstash agent 
 
-4. rkhunter
+4. rkhunter:
     * install & configure rkhunter
+
+5. exim4:
+    * Install & configure Exim4 MTA

@@ -1,0 +1,9 @@
+---
+- name: configure exim4
+  hosts: PRD
+  gather_facts: False
+  su: yes
+  su_user: root
+  
+  roles:
+    - ../galaxy_roles/webbylab.exim4-sender
