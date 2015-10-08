@@ -18,7 +18,8 @@
       lineinfile: dest=/etc/rkhunter.conf regexp="{{ item.regexp }}" line="{{ item.line }}" backup=yes
       with_items:
         - { regexp: SCRIPTWHITELIST=/usr/bin/unhide.rb, line: SCRIPTWHITELIST=/usr/bin/unhide.rb }
-        - { regexp: MAIL-ON-WARNING=\"\", line: MAIL-ON-WARNING=\"hdadm@narlabs.org.tw\" }
+        - { regexp: SCRIPTWHITELIST=/sbin/chkconfig, line: SCRIPTWHITELIST=/sbin/chkconfig }
+        - { regexp: MAIL-ON-WARNING=\"hdadm@narlabs.org.tw\", line: MAIL-ON-WARNING=\"hdadm@narlabs.org.tw\" }
       tags: rkhunter
 
     - name: rkhunter | configure cron

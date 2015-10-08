@@ -89,6 +89,13 @@
       regexp="^ClientAliveCountMax\s+"
       line="ClientAliveCountMax 0"
 
+  - name: ServerKeyBits
+    lineinfile: >
+      state=present
+      dest=/etc/ssh/sshd_config
+      regexp="^ServerKeyBits\s+"
+      line="ServerKeyBits 2048"
+
   - name: Install auditd
     apt: name=auditd state=present
 
@@ -97,4 +104,7 @@
 
   - name: Apply audit.rules
     command: /sbin/auditctl -R /etc/audit/audit.rules
+
+  - name: restart sshd
+    service: name=ssh state=restarted
   
