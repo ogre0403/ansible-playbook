@@ -1,0 +1,15 @@
+---
+- name: del user
+  hosts: PRD
+  gather_facts: False
+  su: yes
+  su_user: root
+  
+  tasks:
+  - name: del users
+    user: name={{item}} state=absent remove=yes
+    with_items:
+        - thomas
+        - nchcstorm
+
+

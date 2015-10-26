@@ -22,3 +22,7 @@ Following playbooks are provided:
 
 5. exim4:
     * Install & configure Exim4 MTA
+
+6. delUser:
+    * delete users and home directory
+
