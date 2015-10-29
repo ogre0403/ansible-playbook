@@ -20,6 +20,7 @@
         - { regexp: SCRIPTWHITELIST=/usr/bin/unhide.rb, line: SCRIPTWHITELIST=/usr/bin/unhide.rb }
         - { regexp: SCRIPTWHITELIST=/sbin/chkconfig, line: SCRIPTWHITELIST=/sbin/chkconfig }
         - { regexp: MAIL-ON-WARNING=\"hdadm@narlabs.org.tw\", line: MAIL-ON-WARNING=\"hdadm@narlabs.org.tw\" }
+        - { regexp: ^MAIL_CMD, line: MAIL_CMD=mail -s \" rkhunter Warnings foound. \" }
       tags: rkhunter
 
     - name: rkhunter | configure cron
