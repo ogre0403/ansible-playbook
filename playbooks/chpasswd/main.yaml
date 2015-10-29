@@ -1,0 +1,17 @@
+---
+- name: change user password
+  hosts: PRD
+  gather_facts: False
+  su: yes
+  su_user: root
+  vars: 
+    user: hdadm
+    user_password: "$6$KRD1DUJLCPMBj$afWEl7R2y5TIDZTAO0ZHkZPhxxIRuE.zp3M3ukyVEAP3xPIcCWgsNAPDM7Imw1vPZovwSO1yiACJknIsmrH3i/"
+  
+  tasks:
+  - name: change  users password
+    user: name={{user}}  password="{{user_password}}" state=present update_password=always
+
+  - name: password expire time = 180
+    command: /usr/bin/chage -M 180 {{user}}        
+

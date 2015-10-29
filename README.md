@@ -26,3 +26,6 @@ Following playbooks are provided:
 6. delUser:
     * delete users and home directory
 
+6. chpassword:
+    * change user password, use ```mkpasswd --method=SHA-512``` to generate hashed passwrod first
+
