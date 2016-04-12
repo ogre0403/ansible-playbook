@@ -1,0 +1,12 @@
+---
+- name: Update rkhunter database
+  hosts: PRD
+  gather_facts: False
+  su: yes
+  su_user: root
+
+  tasks:
+    - name: rkhunter | update
+      command: rkhunter --propupd
+      tags: rkhunter
+

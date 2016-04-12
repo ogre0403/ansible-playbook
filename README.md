@@ -18,7 +18,8 @@ Following playbooks are provided:
     * deploy logstash agent 
 
 4. rkhunter:
-    * install & configure rkhunter
+    * main.yaml: install & configure rkhunter
+    * update.yaml: update rkhunter db
 
 5. exim4:
     * Install & configure Exim4 MTA
